@@ -6,7 +6,7 @@
     <br>
 </p>
 
-#Konfigurasi
+# Konfigurasi
 buat file db.php pada folder config dengan isi 
 
 ```php
@@ -26,6 +26,6 @@ return [
 ];
 ```
 
-#Memulai Server
+# Memulai Server
 
 php yii serve
