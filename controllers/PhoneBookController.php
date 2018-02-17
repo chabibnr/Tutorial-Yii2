@@ -1,22 +1,21 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: chabibnr
- * Date: 2/16/18
- * Time: 10:01 AM
- */
 
 namespace app\controllers;
 
-
-use app\models\PhoneBook;
+use Yii;
 use yii\web\Controller;
 
 class PhoneBookController extends Controller {
 
-    public function actionIndex(){
-        $model = new PhoneBook();
-        return $this->render('index', [
+    public function actionCreate(){
+        $model = new \app\models\PhoneBook();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            echo "Sukses";
+            return;
+        }
+
+        return $this->render('create', [
             'model' => $model
         ]);
     }
