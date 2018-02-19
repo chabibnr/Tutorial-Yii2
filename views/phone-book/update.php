@@ -6,7 +6,7 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\models\PhoneBook */
 /* @var $form ActiveForm */
-$this->title = $model->isNewRecord ? "Buat Data Baru" : "Perbarui Data";
+$this->title = "Ubah Data";
 ?>
 <h2><?=Html::encode($this->title)?></h2>
 <?php $form = ActiveForm::begin(); ?>

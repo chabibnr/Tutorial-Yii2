@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
 class PhoneBookController extends Controller {
 
@@ -25,6 +26,22 @@ class PhoneBookController extends Controller {
         }
 
         return $this->render('create', [
+            'model' => $model
+        ]);
+    }
+
+    public function actionUpdate($id){
+        $model = \app\models\PhoneBook::findOne($id);
+        if($model == null){
+            throw new NotFoundHttpException("Data tidak ditemukan");
+        }
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            return $this->redirect(['index']);
+        }
+
+        return $this->render('update', [
             'model' => $model
         ]);
     }
