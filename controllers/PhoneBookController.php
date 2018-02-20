@@ -7,9 +7,18 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
 class PhoneBookController extends Controller {
+    public function behaviors() {
+        return [
+            'verbs' => [
+                'class' => \yii\filters\VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+        ];
+    }
 
-    public function actionIndex()
-    {
+    public function actionIndex() {
         return $this->render('index', [
             'dataProvider' => new \yii\data\ActiveDataProvider([
                 'query' => \app\models\PhoneBook::find(),
@@ -17,7 +26,7 @@ class PhoneBookController extends Controller {
         ]);
     }
 
-    public function actionCreate(){
+    public function actionCreate() {
         $model = new \app\models\PhoneBook();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -30,9 +39,9 @@ class PhoneBookController extends Controller {
         ]);
     }
 
-    public function actionUpdate($id){
+    public function actionUpdate($id) {
         $model = \app\models\PhoneBook::findOne($id);
-        if($model == null){
+        if ($model == null) {
             throw new NotFoundHttpException("Data tidak ditemukan");
         }
 
@@ -44,6 +53,17 @@ class PhoneBookController extends Controller {
         return $this->render('update', [
             'model' => $model
         ]);
+    }
+
+    public function actionDelete($id) {
+        $model = \app\models\PhoneBook::findOne($id);
+        if ($model == null) {
+            throw new NotFoundHttpException("Data tidak ditemukan");
+        }
+
+        if ($model->delete()) {
+            return $this->redirect(['index']);
+        }
     }
 
 }
